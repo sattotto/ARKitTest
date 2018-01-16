@@ -49,17 +49,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let node = SCNNode()
         let scale: CGFloat = 0.3
         
-        let memoView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
-        memoView.backgroundColor = UIColor.clear
-        
-        let memoLabel = UILabel.init(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+        let memoLabel = UILabel.init(frame: CGRect(x: 0, y: 0, width: 24*memo.count, height: 24))
+        memoLabel.textAlignment = .center
         memoLabel.text = memo
         memoLabel.textColor = UIColor.black
         memoLabel.font = UIFont.systemFont(ofSize: 24)
+        
+        let memoView = UIView(frame: CGRect(x: 0, y: 0, width: memoLabel.frame.width, height: memoLabel.frame.height))
+        memoView.backgroundColor = UIColor.clear
         memoView.addSubview(memoLabel)
         
         let geometry = SCNBox(width: memoView.frame.width * scale / memoView.frame.height, height: scale, length: 0.00000001, chamferRadius: 0.0)
         geometry.firstMaterial?.diffuse.contents = memoView
+        
         node.geometry = geometry
         node.position = position
         return node
