@@ -110,16 +110,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func tapMemoAlert(result: SCNNode) {
         let alertController = UIAlertController(title: "メッセージの編集",message: "", preferredStyle: UIAlertControllerStyle.alert)
         
-        let edit = UIAlertAction(title: "編集する", style: UIAlertActionStyle.default){ (action: UIAlertAction) in
-            print("edit!")
-        }
+//        let edit = UIAlertAction(title: "編集する", style: UIAlertActionStyle.default){ (action: UIAlertAction) in
+//            print("edit!")
+//        }
         let delete = UIAlertAction(title: "削除する", style: UIAlertActionStyle.default){ (action: UIAlertAction) in
             print("delete!")
             result.removeFromParentNode()
         }
         let cancelButton = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.cancel, handler: nil)
         
-        alertController.addAction(edit)
+//        alertController.addAction(edit)
         alertController.addAction(delete)
         alertController.addAction(cancelButton)
         
