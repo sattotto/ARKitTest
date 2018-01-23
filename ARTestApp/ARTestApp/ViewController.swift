@@ -69,9 +69,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     private func setMemoToScene(memo: String){
         if let camera = sceneView.pointOfView {
-            let position = SCNVector3(0, 0, -0.5)
+            let position = SCNVector3(0, 0, -5)
             let convertPosition = camera.convertPosition(position, to: nil)
             let node = createMemoNode(memo, position: convertPosition)
+            node.eulerAngles = camera.eulerAngles
             self.sceneView.scene.rootNode.addChildNode(node)
         }
     }
