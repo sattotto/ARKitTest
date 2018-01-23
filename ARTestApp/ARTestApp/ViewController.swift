@@ -67,6 +67,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         node.geometry = geometry
         node.position = position
+        node.name = "memo"
         return node
     }
     
@@ -91,6 +92,40 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
 
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let location = touches.first?.location(in: sceneView) else {
+            return
+        }
+        if let hitResults = self.sceneView?.hitTest(location, options: nil) {
+            if hitResults.count > 0 {
+                let result = hitResults.first?.node
+                
+                if result?.name == "memo" {
+                    tapMemoAlert(result: result!)
+                }
+            }
+        }
+    }
+    // メモタップ時のアラート
+    func tapMemoAlert(result: SCNNode) {
+        let alertController = UIAlertController(title: "メッセージの編集",message: "", preferredStyle: UIAlertControllerStyle.alert)
+        
+//        let edit = UIAlertAction(title: "編集する", style: UIAlertActionStyle.default){ (action: UIAlertAction) in
+//            print("edit!")
+//        }
+        let delete = UIAlertAction(title: "削除する", style: UIAlertActionStyle.default){ (action: UIAlertAction) in
+            print("delete!")
+            result.removeFromParentNode()
+        }
+        let cancelButton = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.cancel, handler: nil)
+        
+//        alertController.addAction(edit)
+        alertController.addAction(delete)
+        alertController.addAction(cancelButton)
+        
+        present(alertController,animated: true,completion: nil)
+    }
+    
     // MARK: - ARSCNViewDelegate
     
 /*
