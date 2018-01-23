@@ -15,11 +15,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     
     var memoText: String?
+    let configuration = ARWorldTrackingConfiguration()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let configuration = ARWorldTrackingConfiguration()
+        
+        configuration.planeDetection = .horizontal
         sceneView.session.run(configuration)
     }
     
@@ -27,7 +29,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         super.viewWillAppear(animated)
         
         // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
+//        let configuration = ARWorldTrackingConfiguration()
+//        configuration.planeDetection = .horizontal
 
         // Run the view's session
         sceneView.session.run(configuration)
@@ -83,7 +86,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     @IBAction func unwindToFirstView(segue: UIStoryboardSegue) {
-        setMemoToScene(memo: memoText!)
+        if memoText != "" {
+            setMemoToScene(memo: memoText!)
+        }
     }
 
     // MARK: - ARSCNViewDelegate
