@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7419BDA1201ACA2C00C1BF15 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7419BDA0201ACA2C00C1BF15 /* Realm.framework */; };
 		7419BDA3201ACA3900C1BF15 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7419BDA2201ACA3900C1BF15 /* RealmSwift.framework */; };
+		7419BDA8201B2D0000C1BF15 /* MemoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7419BDA7201B2D0000C1BF15 /* MemoNode.swift */; };
 		745A6A2A200C587D00CD9A3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745A6A29200C587D00CD9A3C /* AppDelegate.swift */; };
 		745A6A2C200C587D00CD9A3C /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 745A6A2B200C587D00CD9A3C /* art.scnassets */; };
 		745A6A2E200C587D00CD9A3C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745A6A2D200C587D00CD9A3C /* ViewController.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		7419BDA0201ACA2C00C1BF15 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		7419BDA2201ACA3900C1BF15 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		7419BDA7201B2D0000C1BF15 /* MemoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoNode.swift; sourceTree = "<group>"; };
 		745A6A26200C587D00CD9A3C /* ARTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		745A6A29200C587D00CD9A3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		745A6A2B200C587D00CD9A3C /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				745A6A29200C587D00CD9A3C /* AppDelegate.swift */,
 				745A6A2B200C587D00CD9A3C /* art.scnassets */,
 				745A6A2D200C587D00CD9A3C /* ViewController.swift */,
+				7419BDA7201B2D0000C1BF15 /* MemoNode.swift */,
 				74851D9A200C8DD900BEBE51 /* createMemoViewController.swift */,
 				745A6A2F200C587D00CD9A3C /* Main.storyboard */,
 				745A6A32200C587D00CD9A3C /* Assets.xcassets */,
@@ -169,7 +172,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -179,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74851D9B200C8DD900BEBE51 /* createMemoViewController.swift in Sources */,
+				7419BDA8201B2D0000C1BF15 /* MemoNode.swift in Sources */,
 				745A6A2E200C587D00CD9A3C /* ViewController.swift in Sources */,
 				745A6A2A200C587D00CD9A3C /* AppDelegate.swift in Sources */,
 			);

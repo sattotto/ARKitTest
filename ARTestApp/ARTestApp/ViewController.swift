@@ -9,6 +9,7 @@
 import UIKit
 import SceneKit
 import ARKit
+import RealmSwift
 
 class ViewController: UIViewController, ARSCNViewDelegate {
 
@@ -20,6 +21,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let realm = try! Realm()
+        let memos: Results<MemoNode>
+        
+        memos = realm.objects(MemoNode.self)
+        memoUpdate(memoNodes: memos)
         
         configuration.planeDetection = .horizontal
         sceneView.session.run(configuration)
@@ -77,6 +83,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             let convertPosition = camera.convertPosition(position, to: nil)
             let node = createMemoNode(memo, position: convertPosition)
             node.eulerAngles = camera.eulerAngles
+            
+            let realm = try! Realm()
+            
+            let memoNode = MemoNode()
+            memoNode.cameraPosX = convertPosition.x
+            memoNode.cameraPosY = convertPosition.y
+            memoNode.cameraPosZ = convertPosition.z
+            memoNode.eulerAnglesX = camera.eulerAngles.x
+            memoNode.eulerAnglesY = camera.eulerAngles.y
+            memoNode.eulerAnglesZ = camera.eulerAngles.z
+            memoNode.memoText = memo
+            try! realm.write {
+                realm.add(memoNode)
+            }
+            
             self.sceneView.scene.rootNode.addChildNode(node)
         }
     }
@@ -106,8 +127,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             }
         }
     }
+    
     // メモタップ時のアラート
-    func tapMemoAlert(result: SCNNode) {
+    private func tapMemoAlert(result: SCNNode) {
         let alertController = UIAlertController(title: "メッセージの編集",message: "", preferredStyle: UIAlertControllerStyle.alert)
         
 //        let edit = UIAlertAction(title: "編集する", style: UIAlertActionStyle.default){ (action: UIAlertAction) in
@@ -124,6 +146,29 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         alertController.addAction(cancelButton)
         
         present(alertController,animated: true,completion: nil)
+    }
+    
+    private func memoUpdate(memoNodes: Results<MemoNode>){
+        for memoNode in memoNodes {
+            setMemoToScene(memo: memoNode.memoText, memoNode: memoNode)
+        }
+    }
+    
+    private func setMemoToScene(memo: String, memoNode: MemoNode){
+        if let camera = sceneView.pointOfView {
+            camera.position.x = memoNode.cameraPosX
+            camera.position.y = memoNode.cameraPosY
+            camera.position.z = memoNode.cameraPosZ
+            let position = SCNVector3(0, 0, -5)
+            let convertPosition = camera.convertPosition(position, to: nil)
+            let node = createMemoNode(memo, position: convertPosition)
+            
+            let angle = SCNVector3(memoNode.eulerAnglesX,memoNode.eulerAnglesY,memoNode.eulerAnglesZ)
+            
+            node.eulerAngles = angle
+            
+            self.sceneView.scene.rootNode.addChildNode(node)
+        }
     }
     
     // MARK: - ARSCNViewDelegate
